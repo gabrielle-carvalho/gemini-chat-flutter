@@ -7,6 +7,8 @@ const String geminiApiKey = 'AIzaSyDlDOlJOPvDSgQQic6Ba4DZkp5-cg5YwBY';
 const String geminiApiUrl = 'https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent';
 
 class ChatScreen extends StatefulWidget {
+  const ChatScreen({super.key});
+
   @override
   _ChatScreenState createState() => _ChatScreenState();
 }
@@ -14,7 +16,6 @@ class ChatScreen extends StatefulWidget {
 class _ChatScreenState extends State<ChatScreen> {
   final TextEditingController _textController = TextEditingController();
   final List<ChatMessage> _messages = <ChatMessage>[];
-  bool _isReplying = false; // Indicador de carregamento
 
   Future<void> _handleSubmitted(String text) async {
     _textController.clear();
@@ -24,12 +25,11 @@ class _ChatScreenState extends State<ChatScreen> {
     );
     setState(() {
       _messages.insert(0, userMessage);
-      _isReplying = true; // Inicia o indicador de carregamento
     });
 
     try {
       final response = await http.post(
-        Uri.parse('${geminiApiUrl}?key=$geminiApiKey'),
+        Uri.parse('$geminiApiUrl?key=$geminiApiKey'),
         headers: {'Content-Type': 'application/json'},
         body: jsonEncode({
           'contents': [
@@ -62,7 +62,6 @@ class _ChatScreenState extends State<ChatScreen> {
       _handleError('Ocorreu um erro ao se comunicar com a API Gemini: $error');
     } finally {
       setState(() {
-        _isReplying = false; // Finaliza o indicador de carregamento
       });
     }
   }
@@ -71,7 +70,7 @@ class _ChatScreenState extends State<ChatScreen> {
     ChatMessage errorChatMessage = ChatMessage(
       text: 'Erro: $errorMessage',
       isUser: false,
-      isError: true, // Adicionamos um indicador de erro para estilização (opcional)
+      isError: true,
     );
     setState(() {
       _messages.insert(0, errorChatMessage);
@@ -108,6 +107,7 @@ class _ChatScreenState extends State<ChatScreen> {
   Widget build(BuildContext context) {
     return Center(
       child: SizedBox(
+        
         width: 600.0,
         child: Scaffold(
           appBar: AppBar(
@@ -128,7 +128,7 @@ class _ChatScreenState extends State<ChatScreen> {
               Divider(height: 1.0, color: Colors.grey[300]),
               Container(
                 decoration: BoxDecoration(
-                  color: Theme.of(context).colorScheme.surfaceVariant,
+                  color: Theme.of(context).colorScheme.surfaceContainerHighest,
                 ),
                 child: _buildTextComposer(),
               ),
@@ -141,7 +141,7 @@ class _ChatScreenState extends State<ChatScreen> {
 }
 
 class ChatMessage extends StatelessWidget {
-  ChatMessage({required this.text, required this.isUser, this.isError = false});
+  const ChatMessage({super.key, required this.text, required this.isUser, this.isError = false});
   final String text;
   final bool isUser;
   final bool isError;
@@ -149,6 +149,7 @@ class ChatMessage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
+      padding: const EdgeInsets.all(8.0),
       margin: const EdgeInsets.symmetric(vertical: 10.0, horizontal: 8.0),
       child: Align(
         alignment: isUser ? Alignment.centerRight : Alignment.centerLeft,

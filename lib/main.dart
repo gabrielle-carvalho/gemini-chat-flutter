@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
-import 'screen_chat_page.dart';
+import 'welcome_screen.dart';
 
 void main() {
   runApp(MyApp());
 }
 
 class MyApp extends StatelessWidget {
+  const MyApp({super.key});
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -26,7 +28,7 @@ class MyApp extends StatelessWidget {
         ),
         fontFamily: 'Roboto', // Uma fonte comum
       ),
-      home: ChatScreen(),
+      home: WelcomeScreen(),
     );
   }
 }

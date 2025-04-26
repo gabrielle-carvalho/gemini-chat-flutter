@@ -43,3 +43,12 @@ O aplicativo oferece uma interface de chat onde os usuários podem digitar suas 
     * Execute o comando: `flutter run -d chrome` (para executar no navegador Chrome) ou outro dispositivo/emulador de sua preferência.
 
 ## Estrutura de Arquivos
+
+gemini_chat_app/
+├── lib/
+│   ├── chat_screen.dart
+│   └── main.dart
+├── web/
+├── .gitignore
+├── pubspec.yaml
+└── README.md             # Documentação do projeto
