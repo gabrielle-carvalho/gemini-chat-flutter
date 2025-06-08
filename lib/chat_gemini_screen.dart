@@ -3,7 +3,7 @@ import 'package:http/http.dart' as http;
 import 'dart:convert';
 
 // Defina suas chaves de API em variáveis (mantenha-as seguras, considere usar variáveis de ambiente)
-const String geminiApiKey = 'AIzaSyDlDOlJOPvDSgQQic6Ba4DZkp5-cg5YwBY';
+const String geminiApiKey = 'AIzaSyCUmnFcZN3EQGjRYX6s1nLNklfVn5tsS2E'; //colocar no env!
 const String geminiApiUrl = 'https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent';
 
 class ChatScreen extends StatefulWidget {
@@ -21,7 +21,7 @@ class _ChatScreenState extends State<ChatScreen> {
     _textController.clear();
     ChatMessage userMessage = ChatMessage(
       text: text,
-      isUser: true,
+      isUser: true, //controle de formatação e controle de gerenciamento
     );
     setState(() {
       _messages.insert(0, userMessage);
@@ -94,7 +94,7 @@ class _ChatScreenState extends State<ChatScreen> {
           Container(
             margin: EdgeInsets.symmetric(horizontal: 4.0),
             child: IconButton(
-                    icon: Icon(Icons.send, color: Theme.of(context).colorScheme.primary),
+                    icon: Icon(Icons.send_outlined, color: Theme.of(context).colorScheme.primary),
                     onPressed: () => _handleSubmitted(_textController.text),
                   ),
           ),
